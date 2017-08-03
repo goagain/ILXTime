@@ -1,0 +1,7 @@
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\bin\Debug\HotFix.dll
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\bin\Debug\HotFix.pdb
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\bin\Debug\UnityEngine.dll
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\bin\Debug\UnityEngine.xml
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\obj\Debug\HotFix.csprojResolveAssemblyReference.cache
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\obj\Debug\HotFix.dll
+c:\users\37925\documents\visual studio 2017\Projects\HotFix\HotFix\obj\Debug\HotFix.pdb
