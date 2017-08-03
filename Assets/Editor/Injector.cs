@@ -41,6 +41,8 @@ namespace ILXTimeInjector
             assembly.Write(assembly_path);
 
             Debug.Log("Inject Success!!!");
+
+            assembly.MainModule.SymbolReader.Dispose();
         }
 
         public static void InjectMethod(TypeDefinition type, MethodDefinition method)
