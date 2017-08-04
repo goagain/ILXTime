@@ -12,13 +12,13 @@ namespace ILXTimeInjector
 {
     public class Injector
     {
-        static System.Reflection.Assembly externalAssembly;
+        //static System.Reflection.Assembly externalAssembly;
         public static void InjectAssembly(string assembly_path)
         {
             var readerParameters = new ReaderParameters { ReadSymbols = true };
             AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assembly_path, readerParameters);
 
-            externalAssembly = System.Reflection.Assembly.LoadFile(assembly_path);
+            //externalAssembly = System.Reflection.Assembly.LoadFile(assembly_path);
 
             if(assembly.Modules.Any(module => module.Types.Any(x=>x.Namespace == "__ILXTime" && x.Name == "INJECTED")))
             {
@@ -38,11 +38,16 @@ namespace ILXTimeInjector
             assembly.MainModule.Types.Add(new TypeDefinition("__ILXTime", "INJECTED", TypeAttributes.Abstract | TypeAttributes.Sealed));
 
             FileUtil.CopyFileOrDirectory(assembly_path, assembly_path + ".bak");
-            assembly.Write(assembly_path);
+
+            var writerParameters = new WriterParameters { WriteSymbols = true };
+            assembly.Write(assembly_path, writerParameters);
 
             Debug.Log("Inject Success!!!");
 
-            assembly.MainModule.SymbolReader.Dispose();
+            if (assembly.MainModule.SymbolReader != null)
+            {
+                assembly.MainModule.SymbolReader.Dispose();
+            }
         }
 
         public static void InjectMethod(TypeDefinition type, MethodDefinition method)
@@ -194,7 +199,9 @@ namespace ILXTimeInjector
             Type type = Type.GetType(fullName);
             if (type != null)
                 return type;
-            return externalAssembly.GetType(fullName);
+
+            return null;
+            //return externalAssembly.GetType(fullName);
         }
 
         public static string GenerateMethodName(MethodDefinition method)

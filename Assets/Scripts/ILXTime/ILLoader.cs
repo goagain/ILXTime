@@ -82,7 +82,7 @@ public class ILLoader : MonoBehaviour {
                     FieldInfo field = origionalType.GetField(delegateName);
                     if (field != null)
                     {
-                        Debug.Log("Finded !!!"); 
+                        Debug.Log(delegateName + " Finded !!!");
                         field.SetValue(null, new HotFixBridge(method));
                     }
                 }

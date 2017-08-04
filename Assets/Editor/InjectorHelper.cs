@@ -5,14 +5,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 class InjectorHelper
 {
     //[UnityEditor.Callbacks.DidReloadScripts]
+    [PostProcessScene]
     [MenuItem("ILXTime_Injector/Inject Game Assembly")]
     public static void InjectUnityAssembly()
     {
+        if (EditorApplication.isCompiling || EditorApplication.isPlaying)
+            return;
         Injector.InjectAssembly(@"Library\ScriptAssemblies\Assembly-CSharp.dll");
     }
 
