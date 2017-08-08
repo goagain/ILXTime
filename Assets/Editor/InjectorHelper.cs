@@ -10,13 +10,20 @@ using UnityEngine;
 
 class InjectorHelper
 {
-    //[UnityEditor.Callbacks.DidReloadScripts]
+    //[PostProcessScene]
+    public static bool autoInjected = true;
+
     [PostProcessScene]
     [MenuItem("ILXTime_Injector/Inject Game Assembly")]
     public static void InjectUnityAssembly()
     {
-        if (EditorApplication.isCompiling || EditorApplication.isPlaying)
+        //Debug.Log(EditorApplication.isCompiling);
+        //Debug.Log(Application.isPlaying);
+        //Debug.Log(autoInjected);
+
+        if (EditorApplication.isCompiling || Application.isPlaying || !autoInjected)
             return;
+        Debug.Log("Injecting...");
         Injector.InjectAssembly(@"Library\ScriptAssemblies\Assembly-CSharp.dll");
     }
 
@@ -30,13 +37,13 @@ class InjectorHelper
         }
     }
 
-    //[UnityEditor.Callbacks.DidReloadScripts]
-    public static void DidReloadScripts()
-    {
-        if (File.Exists(@"Library\ScriptAssemblies\Assembly-CSharp.dll.bak"))
-            File.Delete(@"Library\ScriptAssemblies\Assembly-CSharp.dll.bak");
-        Debug.Log("Delete old backup");
-    }
+    //public static void DidReloadScripts()
+    //{
+    //    if (File.Exists(@"Library\ScriptAssemblies\Assembly-CSharp.dll.bak"))
+    //        File.Delete(@"Library\ScriptAssemblies\Assembly-CSharp.dll.bak");
+    //    Debug.Log("Delete old backup");
+    //}
+
     [MenuItem("ILXTime_Injector/ForceReload")]
     //[UnityEditor.Callbacks.DidReloadScripts]
     public static void ForceReCompile()

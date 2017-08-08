@@ -35,7 +35,8 @@ namespace ILXTimeInjector
                     }
                 }
             }
-            assembly.MainModule.Types.Add(new TypeDefinition("__ILXTime", "INJECTED", TypeAttributes.Abstract | TypeAttributes.Sealed));
+            var objType = assembly.MainModule.ImportReference(typeof(object));
+            assembly.MainModule.Types.Add(new TypeDefinition("__ILXTime", "INJECTED", TypeAttributes.Class, objType));
 
             FileUtil.CopyFileOrDirectory(assembly_path, assembly_path + ".bak");
 

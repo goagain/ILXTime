@@ -9,8 +9,14 @@ public class InjectorConfig {
     {
         if (type.Namespace.Contains("ILRuntime"))
             return false;
+        if (type.FullName.Contains("LitJson"))
+            return false;
+        if (type.FullName.StartsWith("<") && type.FullName.EndsWith(">"))
+            return false;
+        Debug.Log(type.FullName);
 
         return true;
+
     }
 	
 }

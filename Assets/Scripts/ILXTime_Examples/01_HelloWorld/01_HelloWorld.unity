@@ -108,15 +108,17 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1740084091
+--- !u!1 &1677958522
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1927317796647732, guid: 5e4b119f91c8f1942bf4f3fc2115ff94,
+    type: 2}
+  m_PrefabInternal: {fileID: 2106363673}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1740084093}
-  - component: {fileID: 1740084092}
+  - component: {fileID: 1677958525}
+  - component: {fileID: 1677958524}
+  - component: {fileID: 1677958523}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -124,23 +126,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1740084092
+--- !u!114 &1677958523
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1740084091}
+  m_PrefabParentObject: {fileID: 114813365603762830, guid: 5e4b119f91c8f1942bf4f3fc2115ff94,
+    type: 2}
+  m_PrefabInternal: {fileID: 2106363673}
+  m_GameObject: {fileID: 1677958522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0711fc18bce6c4f86494f7bd2ea9c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 51068ca6aaf77064198abf5e9c891663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1740084093
+--- !u!114 &1677958524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114268235250435632, guid: 5e4b119f91c8f1942bf4f3fc2115ff94,
+    type: 2}
+  m_PrefabInternal: {fileID: 2106363673}
+  m_GameObject: {fileID: 1677958522}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffea5f8eb287ffc478bf845434a942fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dllPath: file:///C:\Users\37925\Documents\ILXTime\HotFixProject\HotFix\HotFix\bin\Debug\HotFix.dll
+  pdbPath: file:///C:\Users\37925\Documents\ILXTime\HotFixProject\HotFix\HotFix\bin\Debug\HotFix.pdb
+--- !u!4 &1677958525
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1740084091}
+  m_PrefabParentObject: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94,
+    type: 2}
+  m_PrefabInternal: {fileID: 2106363673}
+  m_GameObject: {fileID: 1677958522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -148,3 +166,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2106363673
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450344748968784, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5e4b119f91c8f1942bf4f3fc2115ff94, type: 2}
+  m_RootGameObject: {fileID: 1677958522}
+  m_IsPrefabParent: 0

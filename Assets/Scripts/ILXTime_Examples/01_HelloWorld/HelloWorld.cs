@@ -6,7 +6,7 @@ public class HelloWorld : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Hello World");
+        Debug.Log("Hello World ..3");
 	}
 
     int count = 0;
@@ -19,7 +19,7 @@ public class HelloWorld : MonoBehaviour {
         }
     }
  
-    int Add(int a, int b)
+    static int Add(int a, int b)
     {
         return a + b;
     }
