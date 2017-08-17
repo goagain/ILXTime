@@ -6,7 +6,7 @@ public class HelloWorld : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("Hello World ..3");
+        Debug.Log("Hello World ..");
 	}
 
     int count = 0;

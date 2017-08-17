@@ -49,14 +49,18 @@ namespace ILXTimeInjector
             {
                 assembly.MainModule.SymbolReader.Dispose();
             }
+            UnityEditorInternal.InternalEditorUtility.RequestScriptReload();
         }
 
         public static void InjectMethod(TypeDefinition type, MethodDefinition method)
         {
-            TypeReference delegateTypeRef = null;
-            Type genericDelegateType = typeof(HotFixBridge);
+            if (type.Name.Contains("<") || type.IsInterface || type.Methods.Count == 0) // skip anonymous type and interface
+                return;
+            if (method.Name == ".cctor")
+                return;
+            TypeDefinition delegateTypeRef = type.Module.Types.Single(t => t.FullName == "HotFixBridge");
 
-            if (genericDelegateType != null)
+            if (delegateTypeRef != null)
             {
                 delegateTypeRef = type.Module.Types.Single(x => x.Name == "HotFixBridge");
                 string delegateFieldName = GenerateMethodName(method);
@@ -65,7 +69,7 @@ namespace ILXTimeInjector
 
                 type.Fields.Add(item);
 
-                var invokeDeclare = type.Module.ImportReference(genericDelegateType.GetMethod("Invoke"));
+                var invokeDeclare = type.Module.ImportReference(delegateTypeRef.Methods.Single(x => x.Name == "Invoke"));
                 if (!method.HasBody)
                     return;
                 var insertPoint = method.Body.Instructions[0];
@@ -163,36 +167,6 @@ namespace ILXTimeInjector
                 return ilGenerator.Create(OpCodes.Ldarg_S, (byte)c);
 
             return ilGenerator.Create(OpCodes.Ldarg, c);
-        }
-        public static Type GetGenericDelegateType(MethodDefinition method)
-        {
-            try
-            {
-                if (method.ReturnType.Name == "Void") //Action
-                {
-                    int ActionParamCount = method.Parameters.Count + 1;
-                    Type pattern = GetTypeByFullName("System.Action`" + ActionParamCount);
-                    var paramTypes = new List<Type> { GetTypeByFullName(method.DeclaringType.FullName) };
-                    paramTypes.AddRange(method.Parameters.Select(p => GetTypeByFullName(p.ParameterType.FullName) ?? typeof(object)));
-                    return pattern.MakeGenericType(paramTypes.ToArray());
-                }
-                else //Func
-                {
-                    int ActionParamCount = method.Parameters.Count + 2;
-                    Type pattern = GetTypeByFullName("System.Func`" + ActionParamCount);
-                    var paramTypes = new List<Type> { GetTypeByFullName(method.DeclaringType.FullName) };
-                    paramTypes.AddRange(method.Parameters.Select(
-                        p =>
-                        GetTypeByFullName(p.ParameterType.FullName) ?? typeof(object)
-                        ));
-                    paramTypes.Add(GetTypeByFullName(method.ReturnType.FullName));
-                    return pattern.MakeGenericType(paramTypes.ToArray());
-                }
-            }
-            catch (Exception )
-            {
-                return null;
-            }
         }
 
         public static Type GetTypeByFullName(string fullName)
