@@ -78,6 +78,7 @@ namespace ILXTimeInjector
                 ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Brfalse, insertPoint));
 
                 ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldsfld, item));
+                ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Dup));
                 ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldfld, parameter));
                 ilGenerator.InsertBefore(insertPoint, CreateLoadIntConst(ilGenerator, 0));
                 if (method.IsStatic)
@@ -92,7 +93,8 @@ namespace ILXTimeInjector
 
                 for (int i = 0; i < method.Parameters.Count; i++)
                 {
-                    ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldsfld, item));
+                    ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Dup));
+                    //ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldsfld, item));
                     ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldfld, parameter));
 
                     int index = (i + (method.IsStatic ? 0 : 1));
@@ -107,7 +109,7 @@ namespace ILXTimeInjector
                     ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Stelem_Ref));
                 }
 
-                ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldsfld, item));
+                //ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Ldsfld, item));
                 ilGenerator.InsertBefore(insertPoint, ilGenerator.Create(OpCodes.Call, invokeDeclare));
 
                 if(method.ReturnType.Name == "Void")
