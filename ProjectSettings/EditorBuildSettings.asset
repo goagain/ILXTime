@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ILRuntime/_Scenes/Examples/01_HelloWorld.unity
+    path: Assets/Scripts/ILXTime_Examples/01_HelloWorld/01_HelloWorld.unity
     guid: 56620a4653ae58343b8300b6074ad088

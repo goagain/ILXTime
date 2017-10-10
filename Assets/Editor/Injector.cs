@@ -20,7 +20,22 @@ namespace ILXTimeInjector
 
             //externalAssembly = System.Reflection.Assembly.LoadFile(assembly_path);
 
-            if(assembly.Modules.Any(module => module.Types.Any(x=>x.Namespace == "__ILXTime" && x.Name == "INJECTED")))
+            var resolver = assembly.MainModule.AssemblyResolver as BaseAssemblyResolver;
+            foreach (var path in
+                (from asm in AppDomain.CurrentDomain.GetAssemblies() select asm.ManifestModule.FullyQualifiedName)
+                 .Distinct())
+            {
+                try
+                {
+                    resolver.AddSearchDirectory(System.IO.Path.GetDirectoryName(path));
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            if (assembly.Modules.Any(module => module.Types.Any(x=>x.Namespace == "__ILXTime" && x.Name == "INJECTED")))
             {
                 Debug.LogError("This Assembly is already injected!");
                 return;
