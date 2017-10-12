@@ -18,8 +18,6 @@ namespace ILXTimeInjector
             var readerParameters = new ReaderParameters { ReadSymbols = true };
             AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assembly_path, readerParameters);
 
-            //externalAssembly = System.Reflection.Assembly.LoadFile(assembly_path);
-
             var resolver = assembly.MainModule.AssemblyResolver as BaseAssemblyResolver;
             foreach (var path in
                 (from asm in AppDomain.CurrentDomain.GetAssemblies() select asm.ManifestModule.FullyQualifiedName)
@@ -71,7 +69,9 @@ namespace ILXTimeInjector
         {
             if (type.Name.Contains("<") || type.IsInterface || type.Methods.Count == 0) // skip anonymous type and interface
                 return;
-            if (method.Name == ".cctor")
+            if (method.Name == ".cctor" || method.HasGenericParameters)
+                return;
+            if (method.Parameters.Any(p => p.IsIn || p.IsOut || p.ParameterType.IsByReference))
                 return;
             TypeDefinition delegateTypeRef = type.Module.Types.Single(t => t.FullName == "HotFixBridge");
 
