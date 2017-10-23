@@ -13,6 +13,7 @@ public class ILLoader : MonoBehaviour {
 
     public string dllPath;
     public string pdbPath;
+    public string postFix = "_HotFix"; 
     //AppDomain是ILRuntime的入口，最好是在一个单例类中保存，整个游戏全局就一个，这里为了示例方便，每个例子里面都单独做了一个
     //大家在正式项目中请全局只创建一个AppDomain
     ILRuntime.Runtime.Enviorment.AppDomain appdomain;
@@ -71,19 +72,24 @@ public class ILLoader : MonoBehaviour {
         //Debug.Log(appdomain.LoadedTypes.Count);
         foreach(var type in appdomain.LoadedTypes.ToArray())
         {
-            Type origionalType = Type.GetType(type.Value.Name);
-            if (origionalType != null)
+            if (type.Value.Name.EndsWith(postFix))
             {
-                foreach (var method in type.Value.GetMethods())
+                string typename = type.Value.Name;
+                string oriTypename = typename.Substring(0, typename.Length - postFix.Length);
+                Type origionalType = Type.GetType(oriTypename);
+                if (origionalType != null)
                 {
-                    //Debug.Log(type.Value.Name + " " + method.Name);
-                    string delegateName = GenerateMethodName(method);
-                    Debug.Log(delegateName);
-                    FieldInfo field = origionalType.GetField(delegateName);
-                    if (field != null)
+                    foreach (var method in type.Value.GetMethods())
                     {
-                        Debug.Log(delegateName + " Finded !!!");
-                        field.SetValue(null, new HotFixBridge(method));
+                        //Debug.Log(type.Value.Name + " " + method.Name);
+                        string delegateName = GenerateMethodName(method);
+                        Debug.Log(delegateName);
+                        FieldInfo field = origionalType.GetField(delegateName);
+                        if (field != null)
+                        {
+                            Debug.Log(delegateName + " Finded !!!");
+                            field.SetValue(null, new HotFixBridge(method));
+                        }
                     }
                 }
             }

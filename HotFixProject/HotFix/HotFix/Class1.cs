@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace HotFix
 {
-    public class HelloWorld
+    public class HelloWorld_HotFix
     {
         public static void Start(HelloWorld self)
         {
